@@ -1,8 +1,7 @@
 # Template for the Video Game Search Engine project
 
 [![build workflow](https://github.com/VictorTruong18/video_game_search_engine/actions/workflows/build.yml/badge.svg)](https://github.com/VictorTruong18/video_game_search_engine/actions)
-[![codecov](https://codecov.io/gh/lernejo/video_game_search_engine_template/branch/main/graph/badge.svg)](https://codecov.io/gh/lernejo/video_game_search_engine_template)
-
+[![codecov](https://codecov.io/gh/VictorTruong18/video_game_search_engine/branch/main/graph/badge.svg?token=SW2H8W09TX)](https://codecov.io/gh/VictorTruong18/video_game_search_engine)
 ## Build the project
 
 The project requires a JDK 17 (recommended distribution is Temurin from [Adoptium](https://adoptium.net/)).
