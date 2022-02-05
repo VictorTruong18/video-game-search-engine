@@ -1,4 +1,4 @@
-package fr.lernejo.search.api.tests;
+package fr.lernejo.search.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.lernejo.search.api.GameInfoListener;
