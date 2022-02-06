@@ -14,18 +14,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @RestController
-public class ElasticSearchController {
+public class GameSearchController {
     private final RestHighLevelClient cli;
 
-    ElasticSearchController(RestHighLevelClient cli) {
+    GameSearchController(RestHighLevelClient cli) {
         this.cli = cli;
     }
 
     @GetMapping("/api/games")
     ArrayList<Object> getGames(@RequestParam(name = "query") String query) throws IOException {
         ArrayList gamesList = new ArrayList();
-        SearchRequest searchRequest = new SearchRequest().source(
-            SearchSourceBuilder.searchSource().query(new QueryStringQueryBuilder(query)));
+        SearchSourceBuilder searchSourceBuilder = SearchSourceBuilder.searchSource()
+            .query(new QueryStringQueryBuilder(query));
+        SearchRequest searchRequest = new SearchRequest().source(searchSourceBuilder);
         SearchResponse searchResponse = this.cli.search(searchRequest, RequestOptions.DEFAULT);
         searchResponse.getHits().forEach(hit -> gamesList.add(hit.getSourceAsMap()));
         return gamesList;
