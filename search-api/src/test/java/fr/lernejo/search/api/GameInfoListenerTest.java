@@ -11,7 +11,7 @@ class GameInfoListenerTest {
     void test_listener_sucess(){
         try (AbstractApplicationContext springContext = new AnnotationConfigApplicationContext(Launcher.class)) {
             RabbitTemplate rabbitTemplate = springContext.getBean(RabbitTemplate.class);
-            rabbitTemplate.convertAndSend("", "game_info", "{'test' : 'working' }", m -> {
+            rabbitTemplate.convertAndSend("", "game_info", "{}", m -> {
                 m.getMessageProperties().getHeaders().put("game_id", "1");
                 return m;
             });
