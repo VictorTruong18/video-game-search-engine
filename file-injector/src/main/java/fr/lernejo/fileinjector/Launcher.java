@@ -16,16 +16,18 @@ import java.nio.file.Paths;
 public class Launcher {
     public static void main(String[] args) {
         try (AbstractApplicationContext springContext = new AnnotationConfigApplicationContext(Launcher.class)) {
-            File file = Paths.get(args[0]).toFile();
-            if (!file.exists()) throw new FileNotFoundException();
-            Game[] games = new ObjectMapper().readValue(file, Game[].class);
-            RabbitTemplate template = springContext.getBean(RabbitTemplate.class);
-            for (Game game : games) {
-                template.setMessageConverter(new Jackson2JsonMessageConverter());
-                template.convertAndSend("", "game_info", game, m -> {
-                    m.getMessageProperties().setHeader("game_id", game.id);
-                    return m;
-                });
+            if (args.length == 1) {
+                File file = Paths.get(args[0]).toFile();
+                if (!file.exists()) throw new FileNotFoundException();
+                Game[] games = new ObjectMapper().readValue(file, Game[].class);
+                RabbitTemplate template = springContext.getBean(RabbitTemplate.class);
+                for (Game game : games) {
+                    template.setMessageConverter(new Jackson2JsonMessageConverter());
+                    template.convertAndSend("", "game_info", game, m -> {
+                        m.getMessageProperties().setHeader("game_id", game.id);
+                        return m;
+                    });
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
