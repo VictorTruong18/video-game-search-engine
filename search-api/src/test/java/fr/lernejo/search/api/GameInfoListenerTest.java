@@ -17,14 +17,4 @@ class GameInfoListenerTest {
             });
         }
     }
-
-    @Test
-    void test_listener_missing_id(){
-        try (AbstractApplicationContext springContext = new AnnotationConfigApplicationContext(Launcher.class)) {
-            RabbitTemplate rabbitTemplate = springContext.getBean(RabbitTemplate.class);
-            rabbitTemplate.convertAndSend("", "game_info", "{'test' : 'working' }", m -> {
-                return m;
-            });
-        }
-    }
 }
