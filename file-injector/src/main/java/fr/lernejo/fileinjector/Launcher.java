@@ -17,10 +17,9 @@ public class Launcher {
     public static void main(String[] args) throws IOException {
         try (AbstractApplicationContext springContext = new AnnotationConfigApplicationContext(Launcher.class)) {
             if (args.length == 1) {
-                final File file = Paths.get(args[0]).toFile();
-                if (!file.exists()) throw new FileNotFoundException();
-                final Game[] games = new ObjectMapper().readValue(file, Game[].class);
-                final RabbitTemplate template = springContext.getBean(RabbitTemplate.class);
+                File file = Paths.get(args[0]).toFile();
+                Game[] games = new ObjectMapper().readValue(file, Game[].class);
+                RabbitTemplate template = springContext.getBean(RabbitTemplate.class);
                 for (Game game : games) {
                     template.setMessageConverter(new Jackson2JsonMessageConverter());
                     template.convertAndSend("", "game_info", game, m -> {

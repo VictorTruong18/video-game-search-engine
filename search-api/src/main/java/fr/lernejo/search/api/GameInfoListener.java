@@ -20,7 +20,7 @@ public class GameInfoListener {
 
     @RabbitListener(queues =  GAME_INFO_QUEUE)
     public void onMessage(String msg, @Header("game_id") String id) throws IOException {
-        final IndexRequest indexRequest = new IndexRequest("games").id(id).source(msg, XContentType.JSON);
+        IndexRequest indexRequest = new IndexRequest("games").id(id).source(msg, XContentType.JSON);
         this.client.index(indexRequest, RequestOptions.DEFAULT);
     }
 }
