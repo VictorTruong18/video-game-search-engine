@@ -18,7 +18,6 @@ public class Launcher {
         try (AbstractApplicationContext springContext = new AnnotationConfigApplicationContext(Launcher.class)) {
             if (args.length == 1) {
                 File file = Paths.get(args[0]).toFile();
-                if (!file.exists()) throw new FileNotFoundException();
                 Game[] games = new ObjectMapper().readValue(file, Game[].class);
                 RabbitTemplate template = springContext.getBean(RabbitTemplate.class);
                 for (Game game : games) {
