@@ -23,11 +23,11 @@ public class GameSearchController {
 
     @GetMapping("/api/games")
     ArrayList<Object> getGames(@RequestParam(name = "query") String query) throws IOException {
-        ArrayList gamesList = new ArrayList();
-        SearchSourceBuilder searchSourceBuilder = SearchSourceBuilder.searchSource()
+        final ArrayList gamesList = new ArrayList();
+        final SearchSourceBuilder searchSourceBuilder = SearchSourceBuilder.searchSource()
             .query(new QueryStringQueryBuilder(query));
-        SearchRequest searchRequest = new SearchRequest().source(searchSourceBuilder);
-        SearchResponse searchResponse = this.cli.search(searchRequest, RequestOptions.DEFAULT);
+        final SearchRequest searchRequest = new SearchRequest().source(searchSourceBuilder);
+        final SearchResponse searchResponse = this.cli.search(searchRequest, RequestOptions.DEFAULT);
         searchResponse.getHits().forEach(hit -> gamesList.add(hit.getSourceAsMap()));
         return gamesList;
     }

@@ -22,12 +22,9 @@ public class ElasticSearchConfiguration {
         @Value("${elasticsearch.host:localhost}") String address,
         @Value("${elasticsearch.port:9200}") int port){
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(
-            AuthScope.ANY,
-            new UsernamePasswordCredentials(user, password));
-        RestClientBuilder builder = RestClient.builder(new HttpHost(address, port))
-            .setHttpClientConfigCallback(
-                b -> b.setDefaultCredentialsProvider(credentialsProvider));
+        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(user, password));
+        final RestClientBuilder builder = RestClient.builder(new HttpHost(address, port))
+            .setHttpClientConfigCallback( b -> b.setDefaultCredentialsProvider(credentialsProvider));
         return new RestHighLevelClient(builder);
     }
 }

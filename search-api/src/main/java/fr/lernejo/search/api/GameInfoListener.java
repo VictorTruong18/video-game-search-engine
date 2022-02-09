@@ -13,17 +13,14 @@ import java.io.IOException;
 @Component
 public class GameInfoListener {
     private final RestHighLevelClient client;
-
+    private final String GAME_INFO_QUEUE = "game_info";
     public GameInfoListener(RestHighLevelClient restHighLevelClient) {
         this.client = restHighLevelClient;
     }
 
-    @RabbitListener(queues =  AmqpConfiguration.GAME_INFO_QUEUE)
+    @RabbitListener(queues =  GAME_INFO_QUEUE)
     public void onMessage(String msg, @Header("game_id") String id) throws IOException {
-        IndexRequest indexRequest = new IndexRequest("games");
-        indexRequest.id(id);
-        indexRequest.source(msg, XContentType.JSON);
-        System.out.println("Message received " + msg + "\n");
+        final IndexRequest indexRequest = new IndexRequest("games").id(id).source(msg, XContentType.JSON);
         this.client.index(indexRequest, RequestOptions.DEFAULT);
     }
 }
