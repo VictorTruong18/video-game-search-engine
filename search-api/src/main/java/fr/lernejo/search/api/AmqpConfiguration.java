@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AmqpConfiguration {
-    final String GAME_INFO_QUEUE = "game_info";
+    private final String GAME_INFO_QUEUE = "game_info";
     @Bean
     Queue queue() {
         return new Queue(GAME_INFO_QUEUE, true);
