@@ -10,10 +10,5 @@ From there, simply use the Maven wrapper to launch all tests (unit tests & integ
 
 `./mvnw verify`
 
-:hardbreaks-option:
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-endif::[]
 
 
